@@ -3,6 +3,4 @@ title: "Introduction to SAE"
 format: html
 ---
 
-# Introduction to SAE
-
 Hello
