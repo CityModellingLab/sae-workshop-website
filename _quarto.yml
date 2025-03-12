@@ -11,9 +11,8 @@ website:
       - text: Home
         href: index.qmd
       
-      - section: About
-        href: about.qmd
-        contents:
+      - section: Introduction to SAE
+        contents: 
         - introduction.qmd
         
 format:
