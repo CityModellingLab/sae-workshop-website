@@ -16,7 +16,7 @@ website:
           href: https://github.com/cpeiretgarcia/sae-workshop-website
 
     contents:
-      - text: Home
+      - text: Workshop introduction
         href: index.qmd
       
       - section: Introduction to SAE
