@@ -1,5 +1,5 @@
 ---
-title: "sae-workshop-website"
+title: "SAE Workshop"
 ---
 
 This is a Quarto website.
