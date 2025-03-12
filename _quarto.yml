@@ -4,6 +4,13 @@ project:
 
 website:
   title: "SAE Workshop"
+  
+  navbar:
+    tools:
+      - icon: github
+        menu:
+        - text: Source Code
+          href: https://github.com/cpeiretgarcia/sae-workshop-website
   sidebar:
     style: "floating"
     search: true
