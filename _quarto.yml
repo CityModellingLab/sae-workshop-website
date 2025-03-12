@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "sae-workshop-website"
+  title: "SAE Workshop"
   navbar:
     left:
       - href: index.qmd
