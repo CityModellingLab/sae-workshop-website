@@ -1,23 +1,22 @@
 [
   {
-    "objectID": "introduction.html",
-    "href": "introduction.html",
-    "title": "Introduction to SAE",
-    "section": "",
-    "text": "Hello"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "SAE Workshop",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2",
+    "crumbs": [
+      "Home"
+    ]
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "About this site\n\n1 + 1\n\n[1] 2",
+    "crumbs": [
+      "About"
+    ]
   }
 ]

@@ -4,16 +4,18 @@ project:
 
 website:
   title: "SAE Workshop"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - href: about.qmd
-        text: About
-      - href: introduction.qmd
-        text: Intro to SAE
+  sidebar:
+    style: "floating"
+    search: true
+    contents:
+      - text: Home
+        href: index.qmd
+      
+      - section: About
+        href: about.qmd
+        contents:
+        - introduction.qmd
         
-
 format:
   html:
     theme:
