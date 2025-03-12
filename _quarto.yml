@@ -10,6 +10,9 @@ website:
         text: Home
       - href: about.qmd
         text: About
+      - href: introduction.qmd
+        text: Intro to SAE
+        
 
 format:
   html:
