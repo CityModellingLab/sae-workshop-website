@@ -198,7 +198,11 @@
     "href": "summary.html",
     "title": "Summary",
     "section": "",
-    "text": "Summary"
+    "text": "Summary",
+    "crumbs": [
+      "Summary",
+      "Summary"
+    ]
   },
   {
     "objectID": "applications.html",

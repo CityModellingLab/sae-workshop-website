@@ -39,6 +39,9 @@ website:
         contents:
         - practical.qmd
         
+      - section: Summary
+        contents:
+        - summary.qmd
 
 bibliography: references.bib
 
