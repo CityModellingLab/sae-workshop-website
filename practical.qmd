@@ -237,6 +237,7 @@ m <- ggplot() +
   theme_map()
 
 ggsave(plot = m, filename = "./_figures/smooth_maps.png")
+m
 ```
 
 ------------------------------------------------------------------------
@@ -356,8 +357,7 @@ p <- ggplot() +
   scale_fill_manual(values = c("#e07a5f","#3d405b","#81b29a","#f2cc8f")) +
   theme_minimal()
 ggsave(plot = p, filename = "./_figures/area-level-density.png")
-
-
+p
 ```
 
 ```{r}
@@ -371,7 +371,7 @@ m <- ggplot() +
   facet_wrap(~source, nrow = 1) +
   theme_map()
 ggsave(plot = m, filename = "./_figures/area-level-maps.png")
-
+m
 ```
 
 ```{r}
