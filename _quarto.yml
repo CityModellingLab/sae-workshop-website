@@ -26,6 +26,10 @@ website:
       - section: Background
         contents:
         - introduction.qmd
+        
+      - section: Practical
+        contents:
+        - practical.qmd
 
 bibliography: references.bib
 
