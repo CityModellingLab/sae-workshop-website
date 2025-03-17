@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -109,7 +129,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Introduction to SAE</a></li><li class="breadcrumb-item"><a href="./introduction.html">Background</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Introduction to SAE</a></li><li class="breadcrumb-item"><a href="./introduction.html">Introduction to SAE</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -164,7 +184,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./introduction.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Background</span></a>
+ <span class="menu-text">Introduction to SAE</span></a>
   </div>
 </li>
       </ul>
@@ -181,7 +201,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Background</span></a>
+ <span class="menu-text">Introduction to SAE</span></a>
   </div>
 </li>
       </ul>
@@ -210,20 +230,20 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Introduction to SAE</a></li><li class="breadcrumb-item"><a href="./introduction.html">Background</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Introduction to SAE</a></li><li class="breadcrumb-item"><a href="./introduction.html">Introduction to SAE</a></li></ol></nav></header>
 
 
 
 
 <section id="background" class="level1">
 <h1>Background</h1>
-<p>In recent years, there has been an increasing demand for detailed disaggregated data at small geographical levels. The growing interest in subnational spatial units such as cities, neighbourhoods, and other small areas requires more granular data than what is typically available. This detailed information is essential for making informed policy decisions and effectively monitoring specific goals. For example, fields like poverty mapping, income estimation, health statistics, or environmental monitoring often require reliable estimates of subpopulations or domains where samples are too small or even non-existent <span class="citation" data-cites="molina2010small">[@molina2010small, @rao2016empirical, @clark2021small, @lahiri2006small]</span>. This can cause severe problems when trying to draw conclusions about these small areas.</p>
-<p>Traditionally, the way of obtaining information about an area involves the use of sample surveys. Survey sampling consists of selecting an <span class="math inline">\(n\)</span> number of observations from a finite population of <span class="math inline">\(N\)</span> individuals and using the sample to draw conclusions about the entire population <span class="citation" data-cites="chambers2011sample">[@chambers2011sample]</span>. Typically, these surveys allow for generating estimates for the total population and, usually, some specific domains. However, many times analysts need to make estimates for areas that are different from the predefined survey domains. What usually happens is that the sample sizes of these desired areas are either too small or even non-existent, which causes serious problems when trying to draw reliable estimators <span class="citation" data-cites="morales2021course">[@morales2021course]</span>. This is because the small population sizes of these domains derive in unacceptably large standard errors, making the estimators unreliable <span class="citation" data-cites="ghosh1994small">[@ghosh1994small]</span>.</p>
+<p>In recent years, there has been an increasing demand for detailed disaggregated data at small geographical levels. The growing interest in subnational spatial units such as cities, neighbourhoods, and other small areas requires more granular data than what is typically available. This detailed information is essential for making informed policy decisions and effectively monitoring specific goals. For example, fields like poverty mapping, income estimation, health statistics, or environmental monitoring often require reliable estimates of subpopulations or domains where samples are too small or even non-existent <span class="citation" data-cites="molina2010small">Lahiri (<a href="#ref-lahiri2006small" role="doc-biblioref">2006</a>)</span>. This can cause severe problems when trying to draw conclusions about these small areas.</p>
+<p>Traditionally, the way of obtaining information about an area involves the use of sample surveys. Survey sampling consists of selecting an <span class="math inline">\(n\)</span> number of observations from a finite population of <span class="math inline">\(N\)</span> individuals and using the sample to draw conclusions about the entire population <span class="citation" data-cites="chambers2011sample">(<a href="#ref-chambers2011sample" role="doc-biblioref">Chambers 2011</a>)</span>. Typically, these surveys allow for generating estimates for the total population and, usually, some specific domains. However, many times analysts need to make estimates for areas that are different from the predefined survey domains. What usually happens is that the sample sizes of these desired areas are either too small or even non-existent, which causes serious problems when trying to draw reliable estimators <span class="citation" data-cites="morales2021course">(<a href="#ref-morales2021course" role="doc-biblioref">Morales et al. 2021</a>)</span>. This is because the small population sizes of these domains derive in unacceptably large standard errors, making the estimators unreliable <span class="citation" data-cites="ghosh1994small">(<a href="#ref-ghosh1994small" role="doc-biblioref">Ghosh and Rao 1994</a>)</span>.</p>
 <p>This section will provide the necessary background information to understand what SAE is and why it is necessary for overcoming the limitations associated with traditional sample-based estimations.</p>
 <section id="introduction-to-small-area-estimation" class="level2">
 <h2 class="anchored" data-anchor-id="introduction-to-small-area-estimation">Introduction to Small Area Estimation</h2>
 <p>Small area estimation (SAE) is a statistical technique for producing reliable information for small groups or regions when regular survey data does not provide enough information. This methodology combines existing survey data with auxiliary information –such as census data, or other appropriate indicators– to improve the estimates[^An estimate is an educated guess on the approximate value of a variable based on available data.] for our variable of interest.</p>
-<p>Traditionally, one way to generate an estimate is using the sample information to draw conclusions about the whole population. This can be done by simply suming the sample values of the variable of interest –target variable– and multiply it by the sample weights <span class="citation" data-cites="horvitz1952generalization">[@horvitz1952generalization]</span>. Methods that only use smaple data to generate estimates about the target variable are known as <strong>direct estimators</strong>. Direct methods pose a series of advantages, such as their simplicity and intuitive calculation or the lack of dependance on external data sources. However, the very qualities that make these estimators attractive are also their greatest limitations. Since they rely only on sample data, their accuracy is directly linked to the sample’s size and representativeness, a challenge that is not always easy to solve.</p>
+<p>Traditionally, one way to generate an estimate is using the sample information to draw conclusions about the whole population. This can be done by simply suming the sample values of the variable of interest –target variable– and multiply it by the sample weights <span class="citation" data-cites="horvitz1952generalization">(<a href="#ref-horvitz1952generalization" role="doc-biblioref">Horvitz and Thompson 1952</a>)</span>. Methods that only use smaple data to generate estimates about the target variable are known as <strong>direct estimators</strong>. Direct methods pose a series of advantages, such as their simplicity and intuitive calculation or the lack of dependance on external data sources. However, the very qualities that make these estimators attractive are also their greatest limitations. Since they rely only on sample data, their accuracy is directly linked to the sample’s size and representativeness, a challenge that is not always easy to solve.</p>
 <p>To exemplify the problem, let us assume that we are interested in estimating child malnutrition rates in rural areas. Suppose a national health survey is conducted to assess malnutrition, but the sample size varies across districts. In urban centers, where more data is collected, direct estimators can provide reasonably accurate and stable estimates. However, in rural districts with smaller sample sizes, the same method produces highly unstable estimates, making it difficult to determine whether a district truly has higher or lower malnutrition rates or if the observed differences are simply due to random variation. This lack of reliability poses a serious challenge for policymakers and organizations that need precise data to allocate resources effectively. In such cases, alternative methods are needed to improve these estimates, allowing for more robust and stable results even when direct survey data is limited.</p>
 </section>
 <section id="challenges-to-traditional-survey-based-estimation" class="level2">
@@ -243,14 +263,14 @@ window.Quarto = {
 </section>
 <section id="how-small-area-estimation-helps" class="level2">
 <h2 class="anchored" data-anchor-id="how-small-area-estimation-helps">How small area estimation helps</h2>
-<p>SAE methods are designed to improve the efficiency of the estimations derived from direct methods by combining survey sampling methodologies with statistical models. SAE allows for estimating parameters of small subsets –often refered to as small areas or domains– of the original population. These domains can represent either a geographical area or a population subgroup for which the sample is small <span class="citation" data-cites="morales2021course">[@morales2021course]</span>.</p>
+<p>SAE methods are designed to improve the efficiency of the estimations derived from direct methods by combining survey sampling methodologies with statistical models. SAE allows for estimating parameters of small subsets –often refered to as small areas or domains– of the original population. These domains can represent either a geographical area or a population subgroup for which the sample is small <span class="citation" data-cites="morales2021course">(<a href="#ref-morales2021course" role="doc-biblioref">Morales et al. 2021</a>)</span>.</p>
 <p>Contrary to direct estimation methods, SAE improves the quality of the estimates by using data from outside the domain area. This is achieved by identifying similar domains and leveraging their data to improve the estimate for the area of interest, effectively “borrowing strength” from related regions or subpopulations to improve accuracy. SAE can also incorporate information from different time periods as auxiliary data from either the same or a different domain area.</p>
 </section>
 <section id="real-world-applications-of-sae" class="level2">
 <h2 class="anchored" data-anchor-id="real-world-applications-of-sae">Real-world applications of SAE</h2>
-<p>SAE’s versatility as a statistical methodology has led to its application across multiple fields. National institutes of statistics and other international organisations –UK Office for National Statistics, US Bureau of Census, the Statistical Office of Italy, or the United Nations– rely on this methodology to produce estimates for domains not explicitly included in the sampling design <span class="citation" data-cites="kreutzmann2019r">[@kreutzmann2019r]</span>. This information is particularly useful for policy making and resource allocation. For instance, in the UK, the Office for National Statistics’ unemployment annual unemployment estimates and the estimates of average income by electoral ward are calculated following this methodology <span class="citation" data-cites="ONS2020SAE">[@ONS2020SAE]</span>. International organisations such as the World Bank have also applied SAE to estimating poverty rates [@]. With estimates at local level being key for poverty reduction, having information at higher spatial resolution helps policy-makers delivering better targetted policies and resource allocation.</p>
-<p><span class="citation" data-cites="finucane2014bayesian">@finucane2014bayesian</span> combined a wide range of data soures to estimate trends on health indicators at country, region, and global levels. The methodology used in this study borrows strength in time, age, covariates, and within and across country clusters to generate unbiased estimators in domains where data are sparse.</p>
-<p><span class="citation" data-cites="bennett2023changes">@bennett2023changes</span> explores the relationship between life expectancy changes at very small area level and housing prices and their evolution.</p>
+<p>SAE’s versatility as a statistical methodology has led to its application across multiple fields. National institutes of statistics and other international organisations –UK Office for National Statistics, US Bureau of Census, the Statistical Office of Italy, or the United Nations– rely on this methodology to produce estimates for domains not explicitly included in the sampling design <span class="citation" data-cites="kreutzmann2019r">(<a href="#ref-kreutzmann2019r" role="doc-biblioref">Kreutzmann et al. 2019</a>)</span>. This information is particularly useful for policy making and resource allocation. For instance, in the UK, the Office for National Statistics’ unemployment annual unemployment estimates and the estimates of average income by electoral ward are calculated following this methodology <span class="citation" data-cites="ONS2020SAE">(<a href="#ref-ONS2020SAE" role="doc-biblioref">Office for National Statistics 2023</a>)</span>. International organisations such as the World Bank have also applied SAE to estimating poverty rates [@]. With estimates at local level being key for poverty reduction, having information at higher spatial resolution helps policy-makers delivering better targetted policies and resource allocation.</p>
+<p><span class="citation" data-cites="finucane2014bayesian">Finucane et al. (<a href="#ref-finucane2014bayesian" role="doc-biblioref">2014</a>)</span> combined a wide range of data soures to estimate trends on health indicators at country, region, and global levels. The methodology used in this study borrows strength in time, age, covariates, and within and across country clusters to generate unbiased estimators in domains where data are sparse.</p>
+<p><span class="citation" data-cites="bennett2023changes">Bennett et al. (<a href="#ref-bennett2023changes" role="doc-biblioref">2023</a>)</span> explores the relationship between life expectancy changes at very small area level and housing prices and their evolution.</p>
 <ul>
 <li>Poverty mapping</li>
 <li>Education</li>
@@ -262,7 +282,7 @@ window.Quarto = {
 </section>
 <section id="the-concept-and-its-relevance" class="level2">
 <h2 class="anchored" data-anchor-id="the-concept-and-its-relevance">The concept and its relevance</h2>
-<p>Small area estimation (SAE) is a statistical technique used to generate reliable estimates for geographic or demographic areas (domains) where sample sizes are limited <span class="citation" data-cites="morales2021course">[@morales2021course]</span>. This technique has long been used, particularly by demographers interested in estimating population counts and other variables of interest for small areas <span class="citation" data-cites="rao2015small">[@rao2015small]</span>. Applications of SAE to disease mapping by epidemiologists and demographers have been dated back to the eleventh century in England and seventeenth century in Canada <span class="citation" data-cites="ghosh1994small">[@ghosh1994small]</span>. These primitive small area statistics were primarily based on either census or administrative records, and aimed at complete enumeration, a much more costly approach than nowadays sample survey methods.</p>
+<p>Small area estimation (SAE) is a statistical technique used to generate reliable estimates for geographic or demographic areas (domains) where sample sizes are limited <span class="citation" data-cites="morales2021course">(<a href="#ref-morales2021course" role="doc-biblioref">Morales et al. 2021</a>)</span>. This technique has long been used, particularly by demographers interested in estimating population counts and other variables of interest for small areas <span class="citation" data-cites="rao2015small">(<a href="#ref-rao2015small" role="doc-biblioref">John NK Rao and Molina 2015</a>)</span>. Applications of SAE to disease mapping by epidemiologists and demographers have been dated back to the eleventh century in England and seventeenth century in Canada <span class="citation" data-cites="ghosh1994small">(<a href="#ref-ghosh1994small" role="doc-biblioref">Ghosh and Rao 1994</a>)</span>. These primitive small area statistics were primarily based on either census or administrative records, and aimed at complete enumeration, a much more costly approach than nowadays sample survey methods.</p>
 <blockquote class="blockquote">
 <p>If you are trying to draw a conclusion about a group of people based on your knowledge of just a few of them, chances are you will make a mistake and your conclusions will be wrong. This is what having “unacceptably large standard errors” means.</p>
 </blockquote>
@@ -279,10 +299,51 @@ window.Quarto = {
 </ul>
 
 
+
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bennett2023changes" class="csl-entry" role="listitem">
+Bennett, James E, Theo Rashid, Alireza Zolfaghari, Yvonne Doyle, Esra Suel, Jonathan Pearson-Stuttard, Bethan Davies, et al. 2023. <span>“Changes in Life Expectancy and House Prices in London from 2002 to 2019: Hyper-Resolution Spatiotemporal Analysis of Death Registration and Real Estate Data.”</span> <em>The Lancet Regional Health–Europe</em> 27.
+</div>
+<div id="ref-chambers2011sample" class="csl-entry" role="listitem">
+Chambers, Ray. 2011. <span>“Which Sample Survey Strategy? A Review of Three Different Approaches.”</span>
+</div>
+<div id="ref-clark2021small" class="csl-entry" role="listitem">
+Clark, Sierra N, James E Bennett, Raphael E Arku, Allan G Hill, Günther Fink, Richard M Adanu, Richard B Biritwum, et al. 2021. <span>“Small Area Variations and Factors Associated with Blood Pressure and Body-Mass Index in Adult Women in Accra, Ghana: Bayesian Spatial Analysis of a Representative Population Survey and Census Data.”</span> <em>PLoS Medicine</em> 18 (11): e1003850.
+</div>
+<div id="ref-finucane2014bayesian" class="csl-entry" role="listitem">
+Finucane, Mariel M, Christopher J Paciorek, Goodarz Danaei, and Majid Ezzati. 2014. <span>“Bayesian Estimation of Population-Level Trends in Measures of Health Status.”</span> <em>Statistical Science</em>, 18–25.
+</div>
+<div id="ref-ghosh1994small" class="csl-entry" role="listitem">
+Ghosh, Malay, and John NK Rao. 1994. <span>“Small Area Estimation: An Appraisal.”</span> <em>Statistical Science</em> 9 (1): 55–76.
+</div>
+<div id="ref-horvitz1952generalization" class="csl-entry" role="listitem">
+Horvitz, Daniel G, and Donovan J Thompson. 1952. <span>“A Generalization of Sampling Without Replacement from a Finite Universe.”</span> <em>Journal of the American Statistical Association</em> 47 (260): 663–85.
+</div>
+<div id="ref-kreutzmann2019r" class="csl-entry" role="listitem">
+Kreutzmann, Ann-Kristin, Sören Pannier, Natalia Rojas-Perilla, Timo Schmid, Matthias Templ, and Nikos Tzavidis. 2019. <span>“The r Package Emdi for Estimating and Mapping Regionally Disaggregated Indicators.”</span> <em>Journal of Statistical Software</em> 91.
+</div>
+<div id="ref-lahiri2006small" class="csl-entry" role="listitem">
+Lahiri, Partha. 2006. <span>“Small Area Estimation.”</span> <em>Encyclopedia of Environmetrics</em>.
+</div>
+<div id="ref-molina2010small" class="csl-entry" role="listitem">
+Molina, Isabel, and Jon NK Rao. 2010. <span>“Small Area Estimation of Poverty Indicators.”</span> <em>Canadian Journal of Statistics</em> 38 (3): 369–85.
+</div>
+<div id="ref-morales2021course" class="csl-entry" role="listitem">
+Morales, Domingo, Marı́a Dolores Esteban, Agustı́n Pérez, and Tomáš Hobza. 2021. <span>“A Course on Small Area Estimation and Mixed Models.”</span> <em>Methods, Theory and Applications in R</em>.
+</div>
+<div id="ref-ONS2020SAE" class="csl-entry" role="listitem">
+Office for National Statistics. 2023. <span>“Small Area Model-Based Income Estimates: Financial Year Ending 2020.”</span> Office for National Statistics. <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/bulletins/smallareamodelbasedincomeestimates/financialyearending2020">https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/bulletins/smallareamodelbasedincomeestimates/financialyearending2020</a>.
+</div>
+<div id="ref-rao2015small" class="csl-entry" role="listitem">
+Rao, John NK, and Isabel Molina. 2015. <em>Small Area Estimation</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-rao2016empirical" class="csl-entry" role="listitem">
+Rao, Jon NK, and Isabel Molina. 2016. <span>“Empirical Bayes and Hierarchical Bayes Estimation of Poverty Measures for Small Areas.”</span> <em>Analysis of Poverty Data by Small Area Estimation</em>, 315–24.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
