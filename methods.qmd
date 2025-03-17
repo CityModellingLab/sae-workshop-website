@@ -1,0 +1,68 @@
+# Methodological approaches {#sec-methods}
+
+## Approaches to Small Area Estimation
+
+The purpose of estimation is to find out the approximate value of a variable for a specific domain using data from a sample. Depending on what domain is used for extracting the data and the approach used for generating the estimator there are several methodologies that can be used. A summary of these methodologies can be found in Table \@ref(tab:table-methodologies).
+
+```{r table-methodologies, echo = FALSE, warning= FALSE, message = FALSE}
+my_table <- data.frame(
+  Typology = c(
+    "Design-Based Direct Estimation",
+    "Design-Based Indirect Estimation",
+    "Model-Based Methods (Area-Level)",
+    "Model-Based Methods (Unit-Level)"
+  ),
+  Specific_crMethodologies = c(
+    "Horvitz-Thompson Estimator, Hájek Estimator, Ratio Estimators, Resampling methods (Bootstrap, Jackknife)",
+    "Basic Synthetic Estimator, Post-Stratified Estimator, Sample Size Dependent Estimator, Generalised Regression (GREG) Estimator",
+    "Fay-Herriot (FH) Model, Area-Level Spatio-Temporal Linear Mixed Model, Area-Level Temporal Linear Mixed Model, Area-Level Spatial Linear Mixed Model, Area-Level Temporal Poisson Mixed Model, Bivariate Fay-Herriot Model",
+    "Nested Error Regression Models, Unit-Level Logit Mixed Models, Generalised Linear Mixed Models (GLMM), Two-Fold Nested Error Regression Model, M-Quantile Regression Approach"
+  ),
+  Description = c(
+    "Direct estimators use only data from the domain of interest. They are simple and intuitive, but can have large variances in small domains. These methods are optimised with respect to the sampling design distribution. Resampling methods are used to estimate variances [2.6, 2.7].",
+    "Indirect estimators use data from outside the target domains to improve the quality of estimates. They use auxiliary information from external sources but do not rely explicitly on models. These methods are optimised with respect to the sampling distribution.",
+    "These methods use models to improve the efficiency of direct estimators by combining survey sampling and finite population inference with statistical models. The basic area-level model in SAE is the Fay–Herriot model. They can incorporate spatial or temporal correlations.",
+    "Unit-level models use individual-level data and can be used to estimate both linear and non-linear parameters. They can incorporate random effects to account for variability between domains. These models are powerful when they fit well to the data."
+  )
+)
+
+knitr::kable(my_table, caption = "Small Area Estimation Methodologies")
+```
+
+### Design-based direct estimation
+
+Direct estimation methods is a basic approach in SAE that relies solely on data from the specific domain of interest. Their intuitive nature makes them a good starting point for understanding more complex estimation methods.
+
+> If we wanted to estimate the average income of a specific county, a direct estimate would only use survey data collected from that county.
+
+Typically, direct estimates are design-based, which means they require minimal assumptions about the data. This implies that the results of direct estimates --such as standard errors and confidence intervals-- are based on a sampling distribution that is known through the sampling design, and therefore are designed to be unbiased in relation to the sampling design[^methods-1].
+
+[^methods-1]: An *unbiased* estimator is a statistic whose value is expected to be equal to the true value of the parameter being estimated. An estimator is unbiased if it does not systematically over or underestimate the true value of the parameter value.
+
+Some key direct estimators are:
+
+-   **Horovitz-Thompson Estimator**: This is a simple, design-unbiased estimator of a domain mean. It is calculated as a sum of the sample values of the target variable multiplied by the sampling weights.
+
+-   **Hájek estimator:** This estimator is also a direct estimator of the domain mean and total.
+
+Direct methods are only suitable when domain sample sizes are large enough so estimators are reliable. This is because when sample sizes are larger, the errors of the estimates derived from that sample will be smaller and the estimation more reliable. When domain sample sizes are too small or even zero, we need to employ other alternative methods.
+
+Three typologies of indirect estimators[^methods-2] have been identified:
+
+[^methods-2]: Other names for indirect estimators include *non-traditional*, *small area*, *modeldependent* and *synthetic*.
+
+-   Domain indirect: uses $y$-values from another domain but not from another time period.
+-   Time indirect: uses $y$-values from another time period for the domain of interest.
+-   Domain and time indirect: uses $y$-values from both another domain as well as time period.
+
+### Design-based indirect Estimation
+
+**Indirect estimation methods** are a good alternative when direct methods are not viable due to small domain sample sizes. These estimation methods use data from other areas that are similar to the area of interest. To do so, it is necessary to estimate a *linking model* that finds similar areas to the domain of interest. These linking models can be either *implicit* or *explicit*.
+
+-   Implicit models are links between areas that are not explicitly formalised through a model.
+
+-   Explicit models establish formal relationships between the domain of interest and other areas using auxiliary information.
+
+### Model-Based Methods
+
+Model-based SAE methods use statistical models to link survey data that is only available for a part of the target population with census data or data at other administrative levels that is available for the entire population [@kreutzmann2019r].

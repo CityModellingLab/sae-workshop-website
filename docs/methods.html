@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction – SAE Workshop</title>
+<title>methods – SAE Workshop</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -67,6 +87,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -80,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./methods.html">Methods</a></li><li class="breadcrumb-item"><a href="./methods.html">Methodological approaches</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -119,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -168,7 +217,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./methods.html" class="sidebar-item-text sidebar-link">
+  <a href="./methods.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Methodological approaches</span></a>
   </div>
 </li>
@@ -218,43 +267,120 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#workshop-structure" id="toc-workshop-structure" class="nav-link active" data-scroll-target="#workshop-structure">Workshop structure</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#sec-methods" id="toc-sec-methods" class="nav-link active" data-scroll-target="#sec-methods">Methodological approaches</a>
+  <ul class="collapse">
+  <li><a href="#approaches-to-small-area-estimation" id="toc-approaches-to-small-area-estimation" class="nav-link" data-scroll-target="#approaches-to-small-area-estimation">Approaches to Small Area Estimation</a>
+  <ul class="collapse">
+  <li><a href="#design-based-direct-estimation" id="toc-design-based-direct-estimation" class="nav-link" data-scroll-target="#design-based-direct-estimation">Design-based direct estimation</a></li>
+  <li><a href="#design-based-indirect-estimation" id="toc-design-based-indirect-estimation" class="nav-link" data-scroll-target="#design-based-indirect-estimation">Design-based indirect Estimation</a></li>
+  <li><a href="#model-based-methods" id="toc-model-based-methods" class="nav-link" data-scroll-target="#model-based-methods">Model-Based Methods</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./methods.html">Methods</a></li><li class="breadcrumb-item"><a href="./methods.html">Methodological approaches</a></li></ol></nav></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Introduction</h1>
+
+
+
+<section id="sec-methods" class="level1">
+<h1>Methodological approaches</h1>
+<section id="approaches-to-small-area-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="approaches-to-small-area-estimation">Approaches to Small Area Estimation</h2>
+<p>The purpose of estimation is to find out the approximate value of a variable for a specific domain using data from a sample. Depending on what domain is used for extracting the data and the approach used for generating the estimator there are several methodologies that can be used. A summary of these methodologies can be found in Table @ref(tab:table-methodologies).</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Small Area Estimation Methodologies</caption>
+<colgroup>
+<col style="width: 6%">
+<col style="width: 41%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Typology</th>
+<th style="text-align: left;">Specific_crMethodologies</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Design-Based Direct Estimation</td>
+<td style="text-align: left;">Horvitz-Thompson Estimator, Hájek Estimator, Ratio Estimators, Resampling methods (Bootstrap, Jackknife)</td>
+<td style="text-align: left;">Direct estimators use only data from the domain of interest. They are simple and intuitive, but can have large variances in small domains. These methods are optimised with respect to the sampling design distribution. Resampling methods are used to estimate variances [2.6, 2.7].</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Design-Based Indirect Estimation</td>
+<td style="text-align: left;">Basic Synthetic Estimator, Post-Stratified Estimator, Sample Size Dependent Estimator, Generalised Regression (GREG) Estimator</td>
+<td style="text-align: left;">Indirect estimators use data from outside the target domains to improve the quality of estimates. They use auxiliary information from external sources but do not rely explicitly on models. These methods are optimised with respect to the sampling distribution.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Model-Based Methods (Area-Level)</td>
+<td style="text-align: left;">Fay-Herriot (FH) Model, Area-Level Spatio-Temporal Linear Mixed Model, Area-Level Temporal Linear Mixed Model, Area-Level Spatial Linear Mixed Model, Area-Level Temporal Poisson Mixed Model, Bivariate Fay-Herriot Model</td>
+<td style="text-align: left;">These methods use models to improve the efficiency of direct estimators by combining survey sampling and finite population inference with statistical models. The basic area-level model in SAE is the Fay–Herriot model. They can incorporate spatial or temporal correlations.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Model-Based Methods (Unit-Level)</td>
+<td style="text-align: left;">Nested Error Regression Models, Unit-Level Logit Mixed Models, Generalised Linear Mixed Models (GLMM), Two-Fold Nested Error Regression Model, M-Quantile Regression Approach</td>
+<td style="text-align: left;">Unit-level models use individual-level data and can be used to estimate both linear and non-linear parameters. They can incorporate random effects to account for variability between domains. These models are powerful when they fit well to the data.</td>
+</tr>
+</tbody>
+</table>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="workshop-structure" class="level2">
-<h2 class="anchored" data-anchor-id="workshop-structure">Workshop structure</h2>
+</div>
+<section id="design-based-direct-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="design-based-direct-estimation">Design-based direct estimation</h3>
+<p>Direct estimation methods is a basic approach in SAE that relies solely on data from the specific domain of interest. Their intuitive nature makes them a good starting point for understanding more complex estimation methods.</p>
+<blockquote class="blockquote">
+<p>If we wanted to estimate the average income of a specific county, a direct estimate would only use survey data collected from that county.</p>
+</blockquote>
+<p>Typically, direct estimates are design-based, which means they require minimal assumptions about the data. This implies that the results of direct estimates –such as standard errors and confidence intervals– are based on a sampling distribution that is known through the sampling design, and therefore are designed to be unbiased in relation to the sampling design<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Some key direct estimators are:</p>
+<ul>
+<li><p><strong>Horovitz-Thompson Estimator</strong>: This is a simple, design-unbiased estimator of a domain mean. It is calculated as a sum of the sample values of the target variable multiplied by the sampling weights.</p></li>
+<li><p><strong>Hájek estimator:</strong> This estimator is also a direct estimator of the domain mean and total.</p></li>
+</ul>
+<p>Direct methods are only suitable when domain sample sizes are large enough so estimators are reliable. This is because when sample sizes are larger, the errors of the estimates derived from that sample will be smaller and the estimation more reliable. When domain sample sizes are too small or even zero, we need to employ other alternative methods.</p>
+<p>Three typologies of indirect estimators<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> have been identified:</p>
+<ul>
+<li>Domain indirect: uses <span class="math inline">\(y\)</span>-values from another domain but not from another time period.</li>
+<li>Time indirect: uses <span class="math inline">\(y\)</span>-values from another time period for the domain of interest.</li>
+<li>Domain and time indirect: uses <span class="math inline">\(y\)</span>-values from both another domain as well as time period.</li>
+</ul>
 </section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
+<section id="design-based-indirect-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="design-based-indirect-estimation">Design-based indirect Estimation</h3>
+<p><strong>Indirect estimation methods</strong> are a good alternative when direct methods are not viable due to small domain sample sizes. These estimation methods use data from other areas that are similar to the area of interest. To do so, it is necessary to estimate a <em>linking model</em> that finds similar areas to the domain of interest. These linking models can be either <em>implicit</em> or <em>explicit</em>.</p>
+<ul>
+<li><p>Implicit models are links between areas that are not explicitly formalised through a model.</p></li>
+<li><p>Explicit models establish formal relationships between the domain of interest and other areas using auxiliary information.</p></li>
+</ul>
+</section>
+<section id="model-based-methods" class="level3">
+<h3 class="anchored" data-anchor-id="model-based-methods">Model-Based Methods</h3>
+<p>Model-based SAE methods use statistical models to link survey data that is only available for a part of the target population with census data or data at other administrative levels that is available for the entire population <span class="citation" data-cites="kreutzmann2019r">(<a href="#ref-kreutzmann2019r" role="doc-biblioref">Kreutzmann et al. 2019</a>)</span>.</p>
+
 
 
 </section>
+</section>
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-kreutzmann2019r" class="csl-entry" role="listitem">
+Kreutzmann, Ann-Kristin, Sören Pannier, Natalia Rojas-Perilla, Timo Schmid, Matthias Templ, and Nikos Tzavidis. 2019. <span>“The r Package Emdi for Estimating and Mapping Regionally Disaggregated Indicators.”</span> <em>Journal of Statistical Software</em> 91.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>An <em>unbiased</em> estimator is a statistic whose value is expected to be equal to the true value of the parameter being estimated. An estimator is unbiased if it does not systematically over or underestimate the true value of the parameter value.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Other names for indirect estimators include <em>non-traditional</em>, <em>small area</em>, <em>modeldependent</em> and <em>synthetic</em>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

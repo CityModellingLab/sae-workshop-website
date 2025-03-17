@@ -27,9 +27,18 @@ website:
         contents:
         - introduction.qmd
         
+      - section: Methods
+        contents:
+        - methods.qmd
+
+      - section: Applications
+        contents:
+        - applications.qmd
+        
       - section: Practical
         contents:
         - practical.qmd
+        
 
 bibliography: references.bib
 
