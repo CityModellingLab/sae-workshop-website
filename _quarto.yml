@@ -23,6 +23,10 @@ website:
         contents: 
         - introduction.qmd
         
+      - section: Background
+        contents:
+        - introduction.qmd
+        
 format:
   html:
     theme:
