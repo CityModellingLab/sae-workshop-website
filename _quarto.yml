@@ -26,7 +26,9 @@ website:
       - section: Background
         contents:
         - introduction.qmd
-        
+
+bibliography: references.bib
+
 format:
   html:
     theme:
