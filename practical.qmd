@@ -350,7 +350,10 @@ ggplot(plot_data, aes(x = benchmark_median, y = estimate_median, color = source)
 
 ```{r}
 # Density functions
-combined_estimates <- bind_rows(direct_area_based_covar, bym2_area_based_covar, iid_area_based_covar, benchmark_population)
+combined_estimates <- bind_rows(direct_area_based_covar, 
+                                bym2_area_based_covar, 
+                                iid_area_based_covar, 
+                                benchmark_population)
 
 p <- ggplot() +
   geom_density(data = combined_estimates, aes(x = median, fill = source), alpha = .7) +
@@ -361,7 +364,10 @@ p
 ```
 
 ```{r}
-gdf <- merge(combined_estimates, msoa_geo, by.x = "Area_MSOA", by.y = "MSOA11CD") %>% 
+gdf <- merge(combined_estimates, 
+             msoa_geo, 
+             by.x = "Area_MSOA",
+             by.y = "MSOA11CD") %>% 
   st_as_sf()
 
 m <- ggplot() +
@@ -373,7 +379,64 @@ m <- ggplot() +
 ggsave(plot = m, filename = "./_figures/area-level-maps.png")
 m
 ```
+# Predict missing values
 
 ```{r}
+# Step 1: Merge demographic covariates with area-level estimates
+full_df <- left_join(X_mat, bym2_area_based_covar, by = "Area_MSOA")
+
+# Step 2: Fit linear model to non-missing median values
+model <- lm(
+  median ~ Age + Sex_2 + Marital_status_Single + Children_dependency_TRUE,
+  data = full_df
+)
+
+summary(model)
+
+# Step 3: Predict values where median is missing
+full_df <- full_df %>%
+  mutate(
+    prediction = ifelse(is.na(median),
+                        predict(model, newdata = .),
+                        NA),
+    median = ifelse(is.na(median), prediction, median),
+    source = ifelse(is.na(source) & !is.na(prediction), "prediction", source)
+  )
+
+# Optional: Assess predictions vs. benchmark
+groundtruth <- left_join(
+  full_df %>% filter(source == "prediction"),
+  benchmark_population,
+  by = "Area_MSOA"
+)
+
+ggplot(data = groundtruth) +
+  geom_point(aes(x = prediction, y = median.y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  scale_x_continuous(expand = c(0, 0), limits = c(0, 35000)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 35000)) +
+  coord_fixed()  # optional: keeps the aspect ratio square
+
+# Step 4: Prepare data for mapping
+map_df <- left_join(
+  full_df %>% select(Area_MSOA, median),
+  msoa_geo,
+  by = c("Area_MSOA" = "MSOA11CD")
+) %>% st_as_sf()
+
+ggplot() +
+  geom_sf(data = map_df, aes(fill = median, colour = median)) +
+  scale_fill_viridis_c(option = "magma", name = "GBP", direction = 1) +
+  scale_colour_viridis_c(option = "magma", name = "GBP", direction = 1) +
+  theme_void()
 
 ```
+
+
+
+
+
+
+
+
+

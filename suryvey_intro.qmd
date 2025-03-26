@@ -1,0 +1,456 @@
+---
+title: '2022 SISCER SAE: The ``survey`` package'
+author: |
+  | Jon Wakefield and Peter Gao
+  | Departments of Statistics and Biostatistics
+  | University of Washington
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document: default
+  slidy_presentation: default
+---
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(collapse=TRUE, fig.align='center', tidy=TRUE, tidy.opts=list(blank=TRUE, width.cutoff=80,strip.white=TRUE), warning=FALSE,message=FALSE,cache=T)
+```
+
+### `R` Survey Package
+
+Written by Thomas Lumley, who has a site for the package here:
+
+<http://r-survey.r-forge.r-project.org/survey/>
+
+The site for the book Lumley (2010, Complex Surveys: A Guide to Analysis using R) is here:
+
+<http://r-survey.r-forge.r-project.org/svybook/index.html>
+
+### Sampling in `R`
+
+For simple random sampling we require $n$ from $N$.
+
+Suppose we have a list of the $N$ units from which we wish to sample $n$, the `sample` command allows SRS without replacement.
+
+```{r, message=FALSE, collapse=TRUE, tidy=TRUE,tidy.opts=list(width.cutoff=20)}
+N <- 5000
+n <- 12
+sample(N,n,replace=FALSE)
+```
+
+This mimics an SRS sampling design of $n=12$ from a population of $N=5000$. The numbers produced are the indices of the units of the population that were sampled.
+
+### Academic Performance Index (API) data
+
+-   This is a useful pedagogic dataset because the complete population data are available, along with various probability samples.
+-   The schools are the observation units.
+-   From the help file (Type "`?api`" at the console): The Academic Performance Index is computed for all California schools based on standardised testing of students and other factors such as attendance and graduation rates.
+-   A numeric API score ranges from a low of 200 to a high of 1000.
+-   The data sets contain information for all schools with at least 100 students.
+-   Full data: 6194 observations (schools) on the 37 variables including `cds` (unique identifier), `stype` (Elementary/Middle/High), `api00` (API in 2000),...
+
+From `?api`:
+
+-   `apipop` is the entire population, apisrs is a simple random sample, `apiclus1` is a cluster sample of school districts, `apistrat` is a sample stratified by `stype` (school type), and `apiclus2` is a two-stage cluster sample of schools within districts.
+
+Each row of the data contains data on one school, i.e., contains information on the children within that school.
+
+### API data: non-survey package `R` commands
+
+We first look at the SRS dataset since for this we can use regular (non-survey) `R` methods since we have a random sample (i.e., no weighting required).
+
+In this sample, 200 schools are randomly sampled and 39 variables are available.
+
+The `survey` package needs to be loaded since it contains the API data.
+
+```{r}
+library(survey)
+data(api)
+names(apisrs)
+```
+
+We find out the size of the dataframe `apisrs`, and then evaluate the mean and variance of the `enroll` variable (over the sample of schools), which is the number of children enrolled in the school.
+
+```{r}
+dim(apisrs)
+ybar <- mean(apisrs$enroll)
+sd <- sqrt(var(apisrs$enroll))
+ybar; sd
+```
+
+Note the standard error is for the infinite population mean parameter $\mu=E[Y]$, not the finite sample mean $\overline{Y}_U$, since no finite population correction factor.
+
+We now calcualte a 95% confidence interval for the superpopulation mean.
+
+```{r}
+se <- sd/sqrt(length(apisrs$enroll))
+endSRS <- qnorm(0.975)*se
+c(ybar - endSRS,ybar + endSRS)
+```
+
+### API data: Some plots
+
+Let's look at a histogram of the number enrolled.
+
+```{r}
+hist(apisrs$enroll,xlab="Number Enrolled",main="")
+```
+
+Boxplots of number enrolled by school type (elementary/high/middle).
+
+```{r}
+boxplot(apisrs$enroll~apisrs$stype,xlab="School type",ylab="Number Enrolled",main="",varwidth=TRUE)
+```
+
+```{r}
+plot(api00~api99,ylab="2000 API Score",xlab="1999 API Score",data=apisrs)
+lines(lowess(apisrs$api00~apisrs$api99),col="red")
+```
+
+## API data: Fitting a linear model
+
+Regression coefficents and var/cov matrix of estimators.
+
+```{r}
+linmod <- lm(api00~api99,data=apisrs)
+coef(linmod) 
+vcov(linmod)
+```
+
+95% CIs for intercept and slope using t distribution for endpoints
+
+```{r}
+confint(linmod) 
+```
+
+## Defining a `survey` object
+
+So far we have been looking at survey data gathered from a SRS, so there has been no need to do anything different to what we would do "usually".
+
+First step in analyzing non-SRS survey data within `R` is to define a `survey` object using the `svydesign` function. From the help file (edited):
+
+`svydesign(ids, probs=NULL, strata = NULL, variables = NULL, fpc=NULL, data = NULL,...)`
+
+-   `ids`: formula or data frame specifying cluster ids from largest level to smallest level, \~0 or \~1 is a formula for no clusters.
+
+-   `probs`: formula or data frame specifying cluster sampling probabilities.
+
+-   `strata`: formula or vector specifying strata, use NULL for no strata.
+
+-   `variables`: formula or data frame specifying the variables measured in the survey. If NULL, the data argument is use.
+
+-   `fpc`: finite population correction (may be population size or fraction of population).
+
+-   `weights`: formula or vector specifying sampling weights as an alternative to probability.
+
+-   `data`: data frame to look up variables in the formula arguments.
+
+We first illustrate using the simple random sample version of the data `apisrs`:
+
+```{r}
+srs_design <-svydesign(id=~1,fpc=~fpc,data=apisrs)
+table(apisrs$fpc)
+```
+
+-   The argument `id=~1` says that individual schools were sampled (there is one row for each school in the data set).
+-   The `data=` argument specifies where the data are found.
+- c=~fpc` says that the variable called `fpc` in the dataset contains the population size for each stratum - there is just one stratum here and so the total population size is a single number, the number of schools (these are the units).  The argument `fp
+
+### SRS example
+
+Let's look at the survey object for the SRS data a little more:
+
+```{r}
+srs_design
+names(srs_design)
+names(srs_design$variables)
+```
+
+```{r}
+summary(srs_design)
+```
+
+```{r}
+head(srs_design$variables,n=2)
+```
+
+We construct the (finite population) mean estimate and it's associated standard error "by hand" and compare with the output of `svymean`. The fpc is close to 1 here, so standard error without fpc adjustment is only slightly bigger.
+
+```{r}
+mean(apisrs$enroll)
+fpcfact <- 1-200/6194
+fpcfact
+sqrt(var(apisrs$enroll)/200)*sqrt(fpcfact)
+SRSmean <- svymean(~enroll,srs_design)
+SRSmean
+coef(lm(apisrs$enroll~1))
+sqrt(vcov(lm(apisrs$enroll~1)))
+```
+
+We form a 95% asymptotic confidence interval for the finite population mean (not the superpopulation mean, that would not contain the fpc component).
+
+```{r}
+confint(SRSmean)
+# We know the truth here!
+mean(apipop$enroll,na.rm=T)
+```
+
+## Stratified Simple Random Sampling
+
+### Defining a stratified survey object
+
+We now play with the stratified random sample version of the data, `apistrat`.
+
+The sample is stratified on school type with 100 elementary, 50 middle and 50 high schools being sampled.
+
+```{r}
+strat_design <- svydesign(id=~1,strata=~stype,fpc=~fpc,data=apistrat)
+strat_design
+```
+
+-   The argument `id=~1` says that individual schools were sampled (there is one row for each school in the data set).
+-   The `strata=~stype` gives the stratum variable, which is school type.
+-   The argument `weights=~pw` gives the name of the variable defining the sampling weights (we do not need to specify this variable as the population size and sample size are available).
+-   The argument `fpc=~fpc` says that the variable called `fpc` in the dataset contains the population size for each stratum.
+
+We do not need both `weights` and `fpc`.
+
+If both are left off then equal sampling probabilities are assumed (which would be incorrect here).
+
+Weights: 4421/100=44.2, 1018/50=20.36, 755/50=15.1 for E, M, H school reflecting the oversampling/undersampling of high/elementary schools, relative to middle schools.
+
+```{r}
+table(apistrat$pw)
+table(apistrat$fpc)
+table(apistrat$stype)
+svytable(~pw,design=strat_design)
+```
+
+Stratification on a variable that is associated with an outcome of interest, can dramatically increase the efficiency of estimation - we are leveraging the association, and the known stratum totals.
+
+Estimation is carried out using a weighted estimator, and the standard error is calculated using the appropriate (design-based) formula that accounts for the stratification.
+
+Stratification reduces the standard error, as compared to SRS, by about 1/3.
+
+```{r}
+STRATmean <- svymean(~enroll,strat_design)
+STRATmean
+sqrt(vcov(STRATmean)/vcov(SRSmean))
+```
+
+We can also estimate the total enrollment
+
+```{r,collapse=TRUE}
+svytotal(~enroll,strat_design)
+# Truth
+sum(apipop$enroll,na.rm=T)
+```
+
+## Stratified random sample
+
+There is no uncertainty in the estimated number of schools of each type with the stratified sample, because we know the type of school for all members of the population
+
+```{r}
+svytotal(~stype,strat_design)
+```
+
+Compare with the SRS design:
+
+```{r}
+svytotal(~stype,srs_design)
+```
+
+## Histogram of enrollment
+
+`svyhist` accounts for the weights so that the proportion of the population in each bin is estimated correctly.
+
+The `hist` command would not account for non-SRS of schools.
+
+```{r}
+svyhist(~enroll,design=strat_design,xlab="School enrollment",main="")
+```
+
+## Cluster Sampling
+
+### A one-stage cluster sample
+
+-   There are 757 districts in total, and 15 districts are sampled.
+
+-   The weight is calculated from $w_k=\pi_k^{-1}$.
+
+-   The sampling weights in `apiclus1` are incorrect but are as obtained from UCLA.
+
+-   So weight should be 757/15 = 50.47 but reported as (`pw`) 33.847. The sampling probabilities are $15/757=0.01982$.
+
+-   All schools within the districts selected were then sampled, to give 183 schools in total.
+
+Below we define a survey object with the `id` variable indicating that the PSUs are districts, as indicated by `dnum`. `fpc` gives the size of the population (number of districts) from which sampling was carried out, here 757.
+
+```{r}
+clus1_design <- svydesign(id=~dnum, data=apiclus1, fpc=~fpc)
+clus1_design
+dim(clus1_design)
+table(apiclus1$fpc)
+```
+
+```{r, collapse=TRUE}
+summary(clus1_design)
+```
+
+```{r, collapse=TRUE}
+head(apiclus1,n=3)
+```
+
+There are 757 districts (PSUs) and 15 were sampled.
+
+```{r, collapse=TRUE}
+length(unique(apipop$dname))
+length(unique(apiclus1$dname))
+dim(apiclus1)
+table(apiclus1$pw)
+table(apiclus1$dnum)
+```
+
+These are 183 schools in the cluster sample (the sum of the last row).
+
+### A two-stage cluster sample
+
+In the two-stage cluster sample, 40 school districts are sampled and then up to five schools are sampled from each of the sampled districts.
+
+We specify the design as below.
+
+```{r, message=FALSE, collapse=TRUE, tidy=TRUE,tidy.opts=list(width.cutoff=20)}
+clus2_design <-svydesign(id=~dnum+snum, fpc=~fpc1+fpc2, data=apiclus2)
+clus2_design
+```
+
+### Exercises
+
+-   For both data from the 1-stage and 2-stage cluster designs, create histograms of the API00 variable using the `svyhist` and `hist` functions.
+-   For both data from the 1-stage and 2-stage cluster desgins, fit linear models regressing API00 on API99 using the `svyglm` and `lm` functions.
+-   What do you expect to see, i.e., when are there differences and when are there no differences?
+
+## BRFSS Data
+
+### Read in Data
+
+`BRFSS` contains the full BRFSS dataset with 16,283 observations:
+
+-   `diab2` variable is the binary indicator of Type II diabetes
+
+-   `strata` is the strata indicator and
+
+-   `rwt_llcp` is the final design weight.
+
+For the purpose of this analysis, we first remove records with missing HRA code or diabetes status from this dataset.
+
+```{r}
+library(ggplot2)
+library(patchwork)
+library(SUMMER)
+data(BRFSS)
+data(KingCounty)
+BRFSS <- subset(BRFSS, !is.na(BRFSS$diab2))
+BRFSS <- subset(BRFSS, !is.na(BRFSS$hracode))
+```
+
+### Design object and direct estimates
+
+We have stratified, disproportionate sampling, so note the arguments:
+
+-   `weights`
+-   `strata`
+
+We then calculate the direct (weighted) esimates using the `survey` package.
+
+```{r}
+library(survey)
+design <- svydesign(ids = ~1, weights = ~rwt_llcp, strata = ~strata, data = BRFSS)
+direct <- svyby(~diab2, ~hracode, design, svymean)
+head(direct,n=5)
+toplotB <- data.frame(direct)
+```
+
+### Maps
+
+Direct estimates:
+
+```{r}
+mapPlot(data=toplotB,geo=KingCounty,variables=c("diab2"),
+   by.data="hracode",by.geo="HRA2010v2_")
+```
+
+Standard errors:
+
+```{r}
+mapPlot(data=toplotB,geo=KingCounty,variables=c("se"),
+   by.data="hracode",by.geo="HRA2010v2_")
+```
+
+Coefficients of variation (100 $\times$ SD/Mean):
+
+```{r}
+toplotB$cv <- 100*toplotB$se/toplotB$diab2
+mapPlot(data=toplotB,geo=KingCounty,variables=c("cv"),
+   by.data="hracode",by.geo="HRA2010v2_")
+```
+
+The CV is often used in survey sampling, with values over (say) 30% being deemed unacceptably large.
+
+## Solutions to Exercises
+
+1-stage cluster sampling: Histograms of API00 ignoring and acknowledging the design.
+
+```{r}
+par(mfrow=c(2,1))
+svyhist(~api00,design=clus1_design,xlim=c(400,1000),main="Survey Design Acknowledged",xlab="API00")
+hist(apiclus1$api00,xlim=c(400,1000),main="Survey Design Ignored",xlab="API00")
+```
+
+-   Makes no difference since the weights are equal here.
+
+```{r}
+table(apiclus1$pw)
+```
+
+2-stage cluster sampling: Histograms of API00 ignoring and acknowledging the design.
+
+```{r}
+par(mfrow=c(2,1))
+svyhist(~api00,design=clus2_design,xlim=c(400,1000),main="Survey Design Acknowledged",xlab="API00")
+hist(apiclus2$api00,xlim=c(400,1000),main="Survey Design Ignored",xlab="API00")
+```
+
+-   Makes a difference since the weights are not equal here:
+
+```{r}
+table(apiclus2$pw)
+```
+
+Now regression:
+
+```{r}
+lmc1 <- svyglm(api00~api99,design=clus1_design)
+summary(lmc1)
+lmc1un <- lm(apiclus1$api00~apiclus1$api99)
+summary(lmc1un)
+```
+
+Notes:
+
+-   the estimates are the same (the weights are equal here).
+
+-   the standard errors are different because the cluster design gives a different amount of information.
+
+```{r}
+lmc2 <- svyglm(api00~api99,design=clus2_design)
+summary(lmc2)
+lmc2un <- lm(apiclus2$api00~apiclus2$api99)
+summary(lmc2un)
+```
+
+Notes:
+
+-   The estimates are different (because the weights differ for this design).
+
+-   The standard errors are different because the cluster design gives a different amount of information. Often cluster samples have higher standard errors, but not always as it depends on sampling variability (and the within-cluster dependency, i.e. the dependency of outcomes on units within the same cluster).

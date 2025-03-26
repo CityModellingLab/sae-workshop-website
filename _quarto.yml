@@ -23,10 +23,6 @@ website:
         contents: 
         - introduction.qmd
         
-      - section: Background
-        contents:
-        - introduction.qmd
-        
       - section: Methods
         contents:
         - methods.qmd

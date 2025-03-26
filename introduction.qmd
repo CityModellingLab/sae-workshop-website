@@ -11,9 +11,9 @@ Traditionally, the way of obtaining information about an area involves the use o
 
 This section will provide the necessary background information to understand what SAE is and why it is necessary for overcoming the limitations associated with traditional sample-based estimations.
 
-## Introduction to Small Area Estimation
+# Introduction to Small Area Estimation
 
-Small area estimation (SAE) is a statistical technique for producing reliable information for small groups or regions when regular survey data does not provide enough information. This methodology combines existing survey data with auxiliary information --such as census data, or other appropriate indicators-- to improve the estimates\[\^An estimate is an educated guess on the approximate value of a variable based on available data.\] for our variable of interest.
+Small area estimation (SAE) is a statistical technique for producing reliable information for small groups or regions when regular survey data does not provide enough information. This methodology combines existing survey data with auxiliary information --such as census data, or other appropriate indicators-- to improve the estimates\[\^An estimate is an educated guess on the approximate value of a va riable based on available data.\] for our variable of interest.
 
 Traditionally, one way to generate an estimate is using the sample information to draw conclusions about the whole population. This can be done by simply suming the sample values of the variable of interest --target variable-- and multiply it by the sample weights [@horvitz1952generalization]. Methods that only use smaple data to generate estimates about the target variable are known as **direct estimators**. Direct methods pose a series of advantages, such as their simplicity and intuitive calculation or the lack of dependance on external data sources. However, the very qualities that make these estimators attractive are also their greatest limitations. Since they rely only on sample data, their accuracy is directly linked to the sample's size and representativeness, a challenge that is not always easy to solve.
 
@@ -57,7 +57,7 @@ ggplot(coin_toss_df, aes(x = sample_size, y = proportion_heads, fill = sample_si
   theme_minimal()
 ```
 
-Increasing the sample size is, however, not always viable. The two main reasons for this are the monetary cost and the impracticality of increased samples. Every additional survey response requires more resources --interviewer wages, transportation, data processing, administrative overhead-- that sometimes are unavailable. These costs can be even higher if the surveys have to be conducted in remote or hard-to-reach areas. Additionally, if we work with past surveys, increasing the sample size is not possible. It could also be the case that some target populations are difficult to access or are reluctant to provide information. In this cases, sample sizes will also be very limited and difficult to expand.
+Increasing the sample size is, however, not always possible. The two main reasons for this are the monetary cost and the impracticality of increased samples. Every additional survey response requires more resources --interviewer wages, transportation, data processing, administrative overhead-- that sometimes are unavailable. These costs can be even higher if the surveys have to be conducted in remote or hard-to-reach areas. Additionally, if we work with past surveys, increasing the sample size is not possible. It could also be the case that some target populations are difficult to access or are reluctant to provide information. In this cases, sample sizes will also be very limited and difficult to expand.
 
 ## How small area estimation helps
 
@@ -69,26 +69,6 @@ Contrary to direct estimation methods, SAE improves the quality of the estimates
 
 SAE's versatility as a statistical methodology has led to its application across multiple fields. National institutes of statistics and other international organisations --UK Office for National Statistics, US Bureau of Census, the Statistical Office of Italy, or the United Nations-- rely on this methodology to produce estimates for domains not explicitly included in the sampling design [@kreutzmann2019r]. This information is particularly useful for policy making and resource allocation. For instance, in the UK, the Office for National Statistics' unemployment annual unemployment estimates and the estimates of average income by electoral ward are calculated following this methodology [@ONS2020SAE]. International organisations such as the World Bank have also applied SAE to estimating poverty rates \[\@\]. With estimates at local level being key for poverty reduction, having information at higher spatial resolution helps policy-makers delivering better targetted policies and resource allocation.
 
-@finucane2014bayesian combined a wide range of data soures to estimate trends on health indicators at country, region, and global levels. The methodology used in this study borrows strength in time, age, covariates, and within and across country clusters to generate unbiased estimators in domains where data are sparse.
+# Summary and Conclusions
 
-@bennett2023changes explores the relationship between life expectancy changes at very small area level and housing prices and their evolution.
-
--   Poverty mapping
--   Education
--   Environmental monitoring
-
-## Conclusion
-
-## The concept and its relevance
-
-Small area estimation (SAE) is a statistical technique used to generate reliable estimates for geographic or demographic areas (domains) where sample sizes are limited [@morales2021course]. This technique has long been used, particularly by demographers interested in estimating population counts and other variables of interest for small areas [@rao2015small]. Applications of SAE to disease mapping by epidemiologists and demographers have been dated back to the eleventh century in England and seventeenth century in Canada [@ghosh1994small]. These primitive small area statistics were primarily based on either census or administrative records, and aimed at complete enumeration, a much more costly approach than nowadays sample survey methods.
-
-> If you are trying to draw a conclusion about a group of people based on your knowledge of just a few of them, chances are you will make a mistake and your conclusions will be wrong. This is what having "unacceptably large standard errors" means.
-
-> **Q1: Why not just increasing the sample size?** This would be an easy solution to this problem. However, in most cases expanding the sample is expensive, or even impossible if the analyst is using secondary data.
-
-## Key concepts of SAE
-
--   **Small area (or domain)**: is the geographic area or subpopulation where the data is scarce or even non-existent.
--   **Target variable**: is the variable of interest for which estimates are being produced.
--   **Estimator**: is a statistical formula used for calculating an unknown population parameter based on sample data.
+SAE is a methodology that allows for generating statistically reliable estimates when samples are limited or non-existent. This is particularly helpful in a context where statistics at high spatial resolutions are in high demand. The methodology has been applied in multiple fields, ranging from poverty estimation to health statistics.
